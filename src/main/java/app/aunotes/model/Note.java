@@ -32,13 +32,35 @@ public class Note {
     @Column(nullable = false,updatable = false)
     @Getter
     @Setter
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;     //created the file Time
+
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String fileName;     // original name like "report.pdf"
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String fileType;     // MIME type like "application/pdf"
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String filePath;     // full disk path or relative path
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private Long fileSize;       // size in bytes
+
 
 
     @Column(nullable = false,updatable = true)
     @Getter
     @Setter
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;    //Modified or updated time
 
     @PrePersist
     protected void onCreate() {
