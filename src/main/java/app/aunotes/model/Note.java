@@ -28,6 +28,11 @@ public class Note {
     @Setter
     private String content;
 
+    @Column(columnDefinition = "TEXT",nullable = false)
+    @Getter
+    @Setter
+    private String subject;
+
 
     @Column(nullable = false,updatable = false)
     @Getter

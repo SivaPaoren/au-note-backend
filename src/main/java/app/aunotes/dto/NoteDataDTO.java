@@ -1,21 +1,12 @@
 package app.aunotes.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class NoteDataDTO {
 
-        @Getter
-        @Setter
         private String title;
-
-
-        @Getter
-        @Setter
         private String description;
+        private String subject;
 
 }
