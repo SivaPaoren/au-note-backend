@@ -1,10 +1,10 @@
 read -p "Enter file path: " FILE_PATH
 read -p "Enter title: " TITLE
 read -p "Enter description: " DESC
-read -p "Enter subject": SUBJ
+read -p "Enter subject: " SUBJ
 
+META_JSON="{\"title\":\"$TITLE\",\"description\":\"$DESC\",\"subject\":\"$SUBJ\"}"
 
-META_JSON="{\"title\":\"$TITLE\",\"description\":\"$DESC\",\"subject:\"$SUBJ\"}"
 API_URL="http://localhost:8080/api/notes/upload"
 
 curl -X POST "$API_URL" \

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.SQLOutput;
 import java.util.UUID;
 import java.nio.file.Files;
 
@@ -37,7 +38,7 @@ public class NoteService {
 
         //create directory if does not exist,otherwise store in the directory
         Files.createDirectories(Paths.get(uploadDir));
-
+        System.out.println("inside the store file serevice" + file.getName() +" --- "+ meta.getDescription()); //debug wheather it arrives here or not
         String originalFilename = file.getOriginalFilename();
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         String storedName = UUID.randomUUID().toString() + extension;
@@ -55,6 +56,8 @@ public class NoteService {
         note.setTitle(meta.getTitle());
         note.setContent(meta.getDescription());
 
+        note.setSubject(meta.getSubject());
+        System.out.println(note);
         return noteRepository.save(note);
     }
 
