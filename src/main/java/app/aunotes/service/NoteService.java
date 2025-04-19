@@ -1,7 +1,7 @@
 package app.aunotes.service;
 
 
-import app.aunotes.dto.NoteDataDTO;
+import app.aunotes.dto.NoteDTO;
 import app.aunotes.model.Note;
 import app.aunotes.repository.NoteRepository;
 
@@ -16,6 +16,8 @@ import java.util.UUID;
 import java.nio.file.Files;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService {
@@ -34,11 +36,10 @@ public class NoteService {
 
 
     //Save note and Save file
-    public Note storeFileWithMeta(MultipartFile file, NoteDataDTO meta) throws IOException {
+    public Note storeFileWithMeta(MultipartFile file, NoteDTO meta) throws IOException {
 
         //create directory if does not exist,otherwise store in the directory
         Files.createDirectories(Paths.get(uploadDir));
-        System.out.println("inside the store file serevice" + file.getName() +" --- "+ meta.getDescription()); //debug wheather it arrives here or not
         String originalFilename = file.getOriginalFilename();
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         String storedName = UUID.randomUUID().toString() + extension;
@@ -57,7 +58,6 @@ public class NoteService {
         note.setContent(meta.getDescription());
 
         note.setSubject(meta.getSubject());
-        System.out.println(note);
         return noteRepository.save(note);
     }
 
@@ -68,8 +68,16 @@ public class NoteService {
 
 
 
-    public List<Note> getAllNotes(){
-        return noteRepository.findAll();
+    public List<NoteDTO> getAllNotes() {
+        List<Note> notes = noteRepository.findAll();
+
+        return notes.stream()
+                .map(note -> new NoteDTO(
+                        note.getTitle(),            // map to name
+                        note.getContent(),           // map to description
+                        note.getSubject()
+                ))
+                .collect(Collectors.toList());
     }
 
 

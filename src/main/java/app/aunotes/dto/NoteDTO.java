@@ -3,7 +3,9 @@ package app.aunotes.dto;
 import lombok.*;
 
 @Data
-public class NoteDataDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class NoteDTO {
 
         private String title;
         private String description;

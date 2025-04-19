@@ -1,6 +1,7 @@
 package app.aunotes.controller;
 
-import app.aunotes.dto.NoteDataDTO;
+import app.aunotes.dto.NoteDTO;
+
 import app.aunotes.model.Note;
 import app.aunotes.service.NoteService;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,9 @@ public class NoteController {
 
     //api to fetch the list of notes or get the list of note ('/api/notes')
     @GetMapping()
-    public ResponseEntity<List<Note>> getAllNotes() {
-        List<Note> notes =  noteService.getAllNotes();
+    public ResponseEntity<List<NoteDTO>> getAllNotes() {
+        List<NoteDTO> notes =  noteService.getAllNotes();
+        System.out.println("I am being called");
         return ResponseEntity.ok(notes);
     }
 
@@ -46,7 +48,7 @@ public class NoteController {
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadFile(
             @RequestPart("file") MultipartFile file,
-            @RequestPart("meta") NoteDataDTO meta) {
+            @RequestPart("meta") NoteDTO meta) {
         System.out.println("File ContentType: " + file.getContentType());
         try {
             Note stored = noteService.storeFileWithMeta(file, meta);
